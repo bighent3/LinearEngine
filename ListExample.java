@@ -13,14 +13,16 @@ public class ListExample {
         System.out.println("My List: " + myList);
         
     }
-    //Behavior: 
-    //Pre:
-    //Post:
+
+    //Behavior: This method prompts the user to add additional items to the list
+    //Pre: Utilizes a scanner and an empty list
+    //Post: Returns a list of items scanned in from the user
     //Parameters:
-    //  - List<String> myList
-    //  - Scanner scanner
-    //Exceptions:
+    //  - List<String> myList: empty list of strings
+    //  - Scanner scanner: scanner to collect items from user, to add to list
+    //Exceptions: NA
     //Returns:
+    // - List<String> myList: list of items added by user
     public static List<String> addToList(List<String> myList, Scanner scanner) {
         System.out.println("Would you like to add an item to the list? (yes/no)");
         String confirmation = scanner.nextLine();
@@ -34,16 +36,21 @@ public class ListExample {
     }
 }
 
+//This class creates the node object composed of an integer(value) and an additional node that it is connected to
+//for project switch int to string
 class Node {
     int key;
     Node left, right;
 
+    //for project switch int item to string
+    //getter method receives item from program, sets value to key of item
     public Node(int item) {
         key = item;
         left = right = null;
     }
 }
 
+//This class
 class BinarySearchTree {
     Node root;
 
@@ -51,11 +58,25 @@ class BinarySearchTree {
         root = null;
     }
 
+    //Behavior: insert operation
+    //Pre: 
+    //Post: 
+    //Parameters:
+    //Exceptions: 
+    //Returns: void
     //Insertion operation
     void insert(int key) {
         root = insertRec(root, key);
     }
 
+    //Behavior: Goes through tree to find where new key belongs and then places it there
+    //Pre: Starts at root, either empty or with other nodes and then adds them
+    //Post: 
+    //Parameters: 
+    // - Node<Node, int>root: 
+    // - int key: value associated with node name
+    //Exceptions: NA
+    //Returns: Node<Node, int>root, the starting point with the full tree connected to it
     Node insertRec(Node root, int key) {
         if (root == null) {
             root = new Node(key);
@@ -71,11 +92,25 @@ class BinarySearchTree {
         return root;
     }
 
+    //Behavior:
+    //Pre: 
+    //Post: 
+    //Parameters:
+    //Exceptions: 
+    //Returns:
+    //
     //Search operation
     public boolean search(int key) {
         return searchRec(root, key);
     }
 
+    //Behavior:
+    //Pre: 
+    //Post: 
+    //Parameters:
+    //Exceptions: 
+    //Returns:
+    //  - 
     public boolean searchRec(Node root, int key) {
         if (root == null) {
             return false; // Key not found
@@ -92,11 +127,23 @@ class BinarySearchTree {
         }
     }
 
+    //Behavior:
+    //Pre: 
+    //Post: 
+    //Parameters:
+    //Exceptions: 
+    //Returns:
     //Deletion operation
     void delete(int key) {
         root = deleteRec(root, key);
     }
 
+    //Behavior:
+    //Pre: 
+    //Post: 
+    //Parameters:
+    //Exceptions: 
+    //Returns:
     Node deleteRec(Node root, int key) {
         if (root == null) {
             return root;
@@ -135,11 +182,23 @@ class BinarySearchTree {
         return minv;
     }
 
+    //Behavior: "public/private" pair for calling recursive method without parameters
+    //Pre: 
+    //Post: 
+    //Parameters:
+    //Exceptions: 
+    //Returns:
     //in=-order traversal (ro verification)
     void inorder() {
         inorderRec(root);
     }
 
+    //Behavior: Recursively calls inorder method
+    //Pre: 
+    //Post: 
+    //Parameters:
+    //Exceptions: 
+    //Returns:
     void inorderRec(Node root) {
         if (root != null) {
             inorderRec(root.left);
@@ -148,6 +207,12 @@ class BinarySearchTree {
         }
     }
 
+    //Behavior:
+    //Pre: 
+    //Post: 
+    //Parameters:
+    //Exceptions: 
+    //Returns:
     public static void main(String[] args) {
         BinarySearchTree tree = new BinarySearchTree();
 
@@ -158,7 +223,7 @@ class BinarySearchTree {
          *     / \   / \
          *    20 40 60 80
         */
-        tree.insert(50);
+        tree.insert(50); //insert operation to add key
         tree.insert(30);
         tree.insert(20);
         tree.insert(40);
@@ -167,17 +232,17 @@ class BinarySearchTree {
         tree.insert(80);
 
         System.out.println("In-order tranversal of the BST:");
-        tree.inorder(); // Expected: 20 30 40 50 60 70 80
+        tree.inorder(); // Expected: 20 30 40 50 60 70 80 uses inorder recursion to walk through tree in order
         System.out.println("\n");
 
         // Search examples
-        System.out.println("Searching for 40: " + tree.search(40)); //
+        System.out.println("Searching for 40: " + tree.search(40)); //search operation for key
         System.out.println("Searching for 90: " + tree.search(90)); //
         System.out.println("\n");
 
         // Deletion examples
         System.out.println("Deleting 20 (leaf node)");
-        tree.delete(20);
+        tree.delete(20); //delete operation for key
         System.out.println("In-order tranversal after deleting 20: ");
         tree.inorder(); // Expected: 30 40 50 60 70 80
         System.out.println("\n");
