@@ -77,7 +77,9 @@ class BinarySearchTree {
     String treeDirection(Scanner direction, Node root, String key) {
         System.out.println("Do you like " + root.key + " or " + key + " better?");
         String better = direction.next();
-        if (better.equalsIgnoreCase(root.key)) {
+        if (root.key == null) {
+            root = new Node(key);
+        } else if (better.equalsIgnoreCase(root.key)) {
             root.left = insertString(direction, root, key);
         } else if (better.equalsIgnoreCase(key)) {
             root.right = insertString(direction, root, key);
