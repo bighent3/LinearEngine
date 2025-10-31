@@ -2,6 +2,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+// add: adds user item to list and BST
+// balance: balances the tree for quicker updates
+// no delete
 
 //This class Prompts the user for items that they want included in a list, then allows them to rank those items based on their opinion on them
 //in relation to the other and returns a list ordered by ranking. With a score out of 10 for each item.
@@ -39,12 +42,12 @@ public class ListExample {
 //This class creates the node object composed of an integer(value) and an additional node that it is connected to
 //for project switch int to string
 class Node {
-    int key;
+    String key;
     Node left, right;
 
     //for project switch int item to string
     //getter method receives item from program, sets value to key of item
-    public Node(int item) {
+    public Node(String item) {
         key = item;
         left = right = null;
     }
@@ -58,129 +61,162 @@ class BinarySearchTree {
         root = null;
     }
 
+    //rebuild similar to insert and insert rec....but compare with items already in the tree
     //Behavior: insert operation
     //Pre: 
-    //Post: 
+    //Post: This method accepts an int key and uses a recursive call to find an update the tree placing the key where it belongs numerically 
     //Parameters:
-    //Exceptions: 
+    //  - int: given key to be placed within the BST
+    //Exceptions: NA
     //Returns: void
     //Insertion operation
-    void insert(int key) {
-        root = insertRec(root, key);
+    void insert(Scanner direction, String key) {
+        root = insertString(direction, root, key);
     }
 
+    String treeDirection(Scanner direction, Node root, String key) {
+        System.out.println("Do you like " + root.key + " or " + key + " better?");
+        String better = direction.next();
+        if (better.equalsIgnoreCase(root.key)) {
+            root.left = insertString(direction, root, key);
+        } else if (better.equalsIgnoreCase(key)) {
+            root.right = insertString(direction, root, key);
+        } else {
+            System.out.println("ERROR");
+        }
+        return "right";
+    }
+
+    Node insertString(Scanner direction, Node root, String key) {
+        if (root == null) {
+            root = new Node(key);
+            return root;
+        } else {
+            treeDirection(direction, root, key);
+        }
+        return root;
+
+    }
+
+    //rebuild
     //Behavior: Goes through tree to find where new key belongs and then places it there
     //Pre: Starts at root, either empty or with other nodes and then adds them
     //Post: 
     //Parameters: 
-    // - Node<Node, int>root: 
+    // - Node<Node, int>root: the initial node of a binary search tree
     // - int key: value associated with node name
     //Exceptions: NA
     //Returns: Node<Node, int>root, the starting point with the full tree connected to it
-    Node insertRec(Node root, int key) {
-        if (root == null) {
-            root = new Node(key);
-            return root;
-        }
+    //
+    // Node insertRec(Node root, int key) {
+    //     if (root == null) {
+    //         root = new Node(key);
+    //         return root;
+    //     }
 
-        if (key < root.key) {
-            root.left = insertRec(root.left, key);
-        } else if (key > root.key) {
-            root.right = insertRec(root.right, key);
-        }
-        // if key is equal to root.key, do nothing (no duplicateds allowed in this)
-        return root;
-    }
+    //     if (key < root.key) {
+    //         root.left = insertRec(root.left, key);
+    //     } else if (key > root.key) {
+    //         root.right = insertRec(root.right, key);
+    //     }
+    //     // if key is equal to root.key, do nothing (no duplicateds allowed in this)
+    //     return root;
+    // }
 
-    //Behavior:
+    //Behavior: Public private pair to trigger recursive call to logically search BST until value is found, or not found
     //Pre: 
     //Post: 
-    //Parameters:
+    //Parameters: int key: value from user
     //Exceptions: 
-    //Returns:
+    //Returns: Recursive call, present or not present
     //
     //Search operation
-    public boolean search(int key) {
-        return searchRec(root, key);
-    }
+    // public boolean search(int key) {
+    //     return searchRec(root, key);
+    // }
 
-    //Behavior:
+    //Behavior: Recursively searching for key
     //Pre: 
     //Post: 
     //Parameters:
-    //Exceptions: 
+    //  - Node root:
+    //  - int key
+    //Exceptions: NA
     //Returns:
-    //  - 
-    public boolean searchRec(Node root, int key) {
-        if (root == null) {
-            return false; // Key not found
-        }
+    //  - null: if not found returns false
+    //  - true: 
+    //  - recursive call:
+    // public boolean searchRec(Node root, String key) {
+    //     if (root == null) {
+    //         return false; // Key not found
+    //     }
 
-        if (root.key == key) {
-            return true; // key found
-        }
+    //     if (root.key == key) {
+    //         return true; // key found
+    //     }
 
-        if (key < root.key) {
-            return searchRec(root.left, key);
-        } else {
-            return searchRec(root.right, key);
-        }
-    }
+    //     if (key < root.key) {
+    //         return searchRec(root.left, key);
+    //     } else {
+    //         return searchRec(root.right, key);
+    //     }
+    // }
 
-    //Behavior:
+    //Behavior: Calls recursive function to delete key
     //Pre: 
     //Post: 
-    //Parameters:
-    //Exceptions: 
-    //Returns:
+    //Parameters: int key: Key to be found and located
+    //Exceptions: NA
+    //Returns: void
     //Deletion operation
-    void delete(int key) {
-        root = deleteRec(root, key);
-    }
+    // void delete(String key) {
+    //     root = deleteRec(root, key);
+    // }
 
+    //rebuild to remove comparison factor
     //Behavior:
     //Pre: 
     //Post: 
     //Parameters:
     //Exceptions: 
     //Returns:
-    Node deleteRec(Node root, int key) {
-        if (root == null) {
-            return root;
-        }
+    // Node deleteRec(Node root, String key) {
+    //     if (root == null) {
+    //         return root;
+    //     }
 
-        if (key < root.key) {
-            root.left = deleteRec(root.left, key);
-        } else if (key > root.key) {
-            root.right = deleteRec(root.right, key);
-        } else {
-            //Node to be deleted found
+    //     if (key < root.key) {
+    //         root.left = deleteRec(root.left, key);
+    //     } else if (key > root.key) {
+    //         root.right = deleteRec(root.right, key);
+    //     } else {
+    //         //Node to be deleted found
 
-            //Case 1: Node with only one child or no child
-            if (root.left == null) {
-                return root.right;
-            } else if (root.right == null) {
-                return root.left;
-            }
+    //         //Case 1: Node with only one child or no child
+    //         if (root.left == null) {
+    //             return root.right;
+    //         } else if (root.right == null) {
+    //             return root.left;
+    //         }
 
-            //case 2: node with 2 children
-            //get the in-order successor (smallest in the right subtree)
-            root.key = minValue(root.right);
+    //         //case 2: node with 2 children
+    //         //get the in-order successor (smallest in the right subtree)
+    //         root.key = minValue(root.right);
 
-            //Delete the inorder successor
-            root.right = deleteRec(root.right, root.key);
-        }
-        return root;
-    }
+    //         //Delete the inorder successor
+    //         root.right = deleteRec(root.right, root.key);
+    //     }
+    //     return root;
+    // }
 
-    int minValue(Node root) {
-        int minv = root.key;
-        while (root.left != null) {
-            minv = root.left.key;
-            root = root.left;
-        }
-        return minv;
-    }
+    // int minValue(Node root) {
+    //     int minv = root.key;
+    //     while (root.left != null) {
+    //         minv = root.left.key;
+    //         root = root.left;
+    //     }
+    //     return minv;
+    // }
 
     //Behavior: "public/private" pair for calling recursive method without parameters
     //Pre: 
@@ -223,37 +259,38 @@ class BinarySearchTree {
          *     / \   / \
          *    20 40 60 80
         */
-        tree.insert(50); //insert operation to add key
-        tree.insert(30);
-        tree.insert(20);
-        tree.insert(40);
-        tree.insert(70);
-        tree.insert(60);
-        tree.insert(80);
+        Scanner scanner = new Scanner(System.in);
+        tree.insert(scanner,"McDonalds"); //insert operation to add key
+        tree.insert(scanner,"Burger King");
+        tree.insert(scanner,"Wendys");
+        tree.insert(scanner,"In and Out");
+        tree.insert(scanner,"Jack in the Box");
+        tree.insert(scanner,"Dicks");
+        tree.insert(scanner,"Jollibee");
 
         System.out.println("In-order tranversal of the BST:");
         tree.inorder(); // Expected: 20 30 40 50 60 70 80 uses inorder recursion to walk through tree in order
         System.out.println("\n");
 
         // Search examples
-        System.out.println("Searching for 40: " + tree.search(40)); //search operation for key
-        System.out.println("Searching for 90: " + tree.search(90)); //
+        // System.out.println("Searching for 40: " + tree.search(40)); //search operation for key
+        // System.out.println("Searching for 90: " + tree.search(90)); //
         System.out.println("\n");
 
         // Deletion examples
         System.out.println("Deleting 20 (leaf node)");
-        tree.delete(20); //delete operation for key
+        // tree.delete(20); //delete operation for key
         System.out.println("In-order tranversal after deleting 20: ");
         tree.inorder(); // Expected: 30 40 50 60 70 80
         System.out.println("\n");
 
         System.out.println("Deleting 70 (node with two children)");
-        tree.delete(70);
+        // tree.delete(70);
         System.out.println("In-order traversal after deleting 70:");
         tree.inorder(); // Expected: 30 40 50 60 80
 
         System.out.println("Deleting 50: ");
-        tree.delete(50);
+        // tree.delete(50);
         System.out.println("Inorder traversal after deleting 50: ");
         tree.inorder(); // Expected: 30 40 60 80
         
