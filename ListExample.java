@@ -74,26 +74,29 @@ class BinarySearchTree {
         root = insertString(direction, root, key);
     }
 
-    String treeDirection(Scanner direction, Node root, String key) {
+    Node treeDirection(Scanner direction, Node root, String key) {
         System.out.println("Do you like " + root.key + " or " + key + " better?");
         String better = direction.next();
-        if (root.key == null) {
-            root = new Node(key);
-        } else if (better.equalsIgnoreCase(root.key)) {
-            root.left = insertString(direction, root, key);
+        if (better.equalsIgnoreCase(root.key)) {
+            root.left = new Node(key);
+            // root.left = insertString(direction, root, key);
+
         } else if (better.equalsIgnoreCase(key)) {
-            root.right = insertString(direction, root, key);
+            root.right = new Node(key);
+            // root.right = insertString(direction, root, key);
         } else {
             System.out.println("ERROR");
         }
-        return "right";
+        return root;
     }
 
     Node insertString(Scanner direction, Node root, String key) {
         if (root == null) {
             root = new Node(key);
+            // System.out.println("poop");
             return root;
         } else {
+            // System.out.println("poop again");
             treeDirection(direction, root, key);
         }
         return root;
@@ -265,35 +268,16 @@ class BinarySearchTree {
         tree.insert(scanner,"McDonalds"); //insert operation to add key
         tree.insert(scanner,"Burger King");
         tree.insert(scanner,"Wendys");
-        tree.insert(scanner,"In and Out");
-        tree.insert(scanner,"Jack in the Box");
-        tree.insert(scanner,"Dicks");
-        tree.insert(scanner,"Jollibee");
+        // tree.insert(scanner,"In and Out");
+        // tree.insert(scanner,"Jack in the Box");
+        // tree.insert(scanner,"Dicks");
+        // tree.insert(scanner,"Jollibee");
 
         System.out.println("In-order tranversal of the BST:");
         tree.inorder(); // Expected: 20 30 40 50 60 70 80 uses inorder recursion to walk through tree in order
         System.out.println("\n");
-
-        // Search examples
-        // System.out.println("Searching for 40: " + tree.search(40)); //search operation for key
-        // System.out.println("Searching for 90: " + tree.search(90)); //
-        System.out.println("\n");
-
-        // Deletion examples
-        System.out.println("Deleting 20 (leaf node)");
-        // tree.delete(20); //delete operation for key
-        System.out.println("In-order tranversal after deleting 20: ");
-        tree.inorder(); // Expected: 30 40 50 60 70 80
-        System.out.println("\n");
-
-        System.out.println("Deleting 70 (node with two children)");
-        // tree.delete(70);
-        System.out.println("In-order traversal after deleting 70:");
         tree.inorder(); // Expected: 30 40 50 60 80
-
-        System.out.println("Deleting 50: ");
-        // tree.delete(50);
-        System.out.println("Inorder traversal after deleting 50: ");
+        System.out.println("\n");
         tree.inorder(); // Expected: 30 40 60 80
         
     }
