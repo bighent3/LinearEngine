@@ -258,11 +258,11 @@ class BinarySearchTree {
         BinarySearchTree tree = new BinarySearchTree();
 
         /*  Constructing the BST:
-         *        50
-         *      /     \
-         *     30     70
-         *     / \   / \
-         *    20 40 60 80
+         *                    McDonalds
+         *             /                    \
+         *       Burger King               Wendys
+         *     /            \              /     \
+         *    In and Out Jack in the Box Dicks Jollibee
         */
         Scanner scanner = new Scanner(System.in);
         tree.insert(scanner,"McDonalds"); //insert operation to add key
@@ -281,4 +281,5 @@ class BinarySearchTree {
         tree.inorder(); // Expected: 30 40 60 80
         
     }
+
 }
